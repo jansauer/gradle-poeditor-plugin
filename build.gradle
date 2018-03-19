@@ -1,0 +1,44 @@
+plugins {
+  id 'groovy'
+  id 'java-gradle-plugin'
+  id 'com.palantir.git-version' version '0.10.1' // https://plugins.gradle.org/plugin/com.palantir.git-version
+  id 'com.gradle.plugin-publish' version '0.9.10' // https://plugins.gradle.org/plugin/com.gradle.plugin-publish
+}
+
+description = 'Gradle POEditor Plugin'
+group = 'de.jansauer.poeditor'
+version = gitVersion()
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+  mavenCentral()
+  maven {
+    url  "https://dl.bintray.com/rburgst/android"
+  }
+}
+
+dependencies {
+  // https://http-builder-ng.github.io/http-builder-ng/
+  // https://http-builder-ng.github.io/http-builder-ng/docs/javadoc/
+  compile 'io.github.http-builder-ng:http-builder-ng-okhttp:1.0.3'
+
+  testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
+    exclude(module: 'groovy-all')
+  }
+}
+
+pluginBundle {
+  website = 'https://github.com/jansauer/gradle-poeditor-plugin'
+  vcsUrl = 'https://github.com/jansauer/gradle-poeditor-plugin'
+  description = 'Gradle POEditor Plugin.'
+  tags = ['i18n', 'poeditor', 'translation', 'terms', 'gitlab', 'angular']
+
+  plugins {
+    poeditorPlugin {
+      id = 'de.jansauer.poeditor'
+      displayName = 'Gradle POEditor Plugin'
+    }
+  }
+}
