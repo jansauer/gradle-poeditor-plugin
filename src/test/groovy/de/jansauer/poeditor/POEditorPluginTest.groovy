@@ -24,8 +24,8 @@ class POEditorPluginTest extends Specification {
     tocken = System.env.PO_TOKEN
     testProjectDir.create()
     buildFile = testProjectDir.newFile('build.gradle')
-    termsFile = testProjectDir.newFile('messages.xmb')
     buildFolder = testProjectDir.newFolder('build').toPath()
+    termsFile = testProjectDir.newFile('build/messages.xmb')
   }
 
   def "should upload terms and download translations"() {
@@ -39,7 +39,8 @@ class POEditorPluginTest extends Specification {
           apiKey = '${tocken}'
           projectId = '171275'
 
-          terms lang: 'en', file: 'messages.xmb'
+          terms lang: 'en', file: 'build/messages.xmb'
+          
           trans lang: 'de', file: 'build/translations_de.xtb'
           trans lang: 'it', file: 'build/translations_it.xtb'
         }
@@ -53,6 +54,7 @@ class POEditorPluginTest extends Specification {
         .withArguments('--build-cache', 'poeditorPush')
         .withPluginClasspath()
         .forwardOutput()
+        .withDebug(true)
         .build()
 
     then:
@@ -65,6 +67,7 @@ class POEditorPluginTest extends Specification {
         .withArguments('--build-cache', 'poeditorPull')
         .withPluginClasspath()
         .forwardOutput()
+        .withDebug(true)
         .build()
 
     then:
@@ -83,6 +86,7 @@ class POEditorPluginTest extends Specification {
         .withArguments('--build-cache', 'poeditorPush')
         .withPluginClasspath()
         .forwardOutput()
+        .withDebug(true)
         .build()
 
     then:
@@ -95,6 +99,7 @@ class POEditorPluginTest extends Specification {
         .withArguments('--build-cache', 'poeditorPull')
         .withPluginClasspath()
         .forwardOutput()
+        .withDebug(true)
         .build()
 
     then:

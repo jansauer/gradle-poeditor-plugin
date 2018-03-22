@@ -34,15 +34,28 @@ class PushTask extends DefaultTask {
     setGroup('poeditor')
   }
 
+  @InputFiles
+  ConfigurableFileCollection getOutOfDateInputs() {
+    return project.files(*terms.get().collect {Paths.get(it.file)})
+  }
+
+  @OutputFiles
+  ConfigurableFileCollection getOutOfDateOutputs() {
+    return project.files(*terms.get().collect {Paths.get(it.file)})
+  }
+
   @TaskAction
   def pushTerms() {
     // @See https://poeditor.com/docs/api#projects_upload
     logger.debug("Pushing '{}' sets of terms", terms.get().size())
 
-    terms.get().each {
+    terms.get().each { // TODO: Handle more then one term set
       logger.debug("Pushing language '{}' from '{}' to project '{}'", it.lang, it.file, projectId.get())
-      def lang = it.lang
+      def updating = it.updating
       def termsFile = project.file(it.file)
+      def lang = it.lang
+      def overwrite = (it.overwrite) ? '1' : '0'
+      def sync_terms = (it.sync_terms) ? '1' : '0'
 
       def result = configure {
         request.uri = 'https://api.poeditor.com/v2/projects/upload'
@@ -51,10 +64,11 @@ class PushTask extends DefaultTask {
         request.body = multipart {
           field 'api_token', apiKey.get()
           field 'id', projectId.get()
-          field 'updating', 'terms_translations'
+          field 'updating', updating
           part 'file', termsFile.name, 'text/plain', termsFile
           field 'language', lang
-          field 'sync_terms', '1'
+          field 'overwrite', overwrite
+          field 'sync_terms', sync_terms
         }
         request.encoder 'multipart/form-data', OkHttpEncoders.&multipart
 
@@ -76,15 +90,5 @@ class PushTask extends DefaultTask {
         throw new GradleException(result.response.message)
       }
     }
-  }
-
-  @InputFiles
-  ConfigurableFileCollection getOutOfDateInputs() {
-    return project.files(*terms.get().collect {Paths.get(it.file)})
-  }
-
-  @OutputFiles
-  ConfigurableFileCollection getOutOfDateOutputs() {
-    return project.files(*terms.get().collect {Paths.get(it.file)})
   }
 }
