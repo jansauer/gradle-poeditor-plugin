@@ -9,7 +9,7 @@ Add this snippet to yout build script.
 
 ```
 plugins {
-  id 'de.jansauer.poeditor:1.0.0'
+  id 'de.jansauer.poeditor' version '1.0.0'
 }
 
 poeditor {
@@ -17,6 +17,7 @@ poeditor {
   projectId = '12345'
 
   terms lang: 'en', file: 'messages.xmb'
+  
   trans lang: 'de', file: 'build/translations_de.xtb'
   trans lang: 'it', file: 'build/translations_it.xtb'
 }
