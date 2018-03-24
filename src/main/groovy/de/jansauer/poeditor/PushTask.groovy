@@ -10,7 +10,7 @@ import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.OutputFiles
+import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 
 import java.nio.file.Paths
@@ -29,6 +29,9 @@ class PushTask extends DefaultTask {
   @Input
   final ListProperty<Terms> terms = project.objects.listProperty(Terms)
 
+  @OutputFile
+  final File outputFile = project.file('build/tmp/poeditor_result.txt')
+
   PushTask() {
     setDescription('Upload terms to POEditor.')
     setGroup('poeditor')
@@ -38,11 +41,6 @@ class PushTask extends DefaultTask {
   ConfigurableFileCollection getOutOfDateInputs() {
     return project.files(*terms.get().collect {Paths.get(it.file)})
   }
-
-//  @OutputFiles
-//  ConfigurableFileCollection getOutOfDateOutputs() {
-//    return project.files(*terms.get().collect {Paths.get(it.file)})
-//  }
 
   @TaskAction
   def pushTerms() {
@@ -85,6 +83,7 @@ class PushTask extends DefaultTask {
 
       if (result.response.status == 'success') {
         logger.info("{}", result.result)
+        outputFile.text = result.response.code
       } else {
         logger.error("{} {}", result.response.code, result.response.message)
         throw new GradleException(result.response.message)

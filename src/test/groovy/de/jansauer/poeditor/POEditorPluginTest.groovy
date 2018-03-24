@@ -79,31 +79,31 @@ class POEditorPluginTest extends Specification {
     then:
     de.contains('Träumer')
 
-//    when: "should be up to date when pushing without changes"
-//    result = GradleRunner.create()
-//        .withGradleVersion(gradleVersion)
-//        .withProjectDir(testProjectDir.root)
-//        .withArguments('--build-cache', 'poeditorPush')
-//        .withPluginClasspath()
-//        .forwardOutput()
-//        .withDebug(true)
-//        .build()
-//
-//    then:
-//    result.task(':poeditorPush').outcome == UP_TO_DATE
-//
-//    when: "should be up to date when pulling without changes"
-//    result = GradleRunner.create()
-//        .withGradleVersion(gradleVersion)
-//        .withProjectDir(testProjectDir.root)
-//        .withArguments('--build-cache', 'poeditorPull')
-//        .withPluginClasspath()
-//        .forwardOutput()
-//        .withDebug(true)
-//        .build()
-//
-//    then:
-//    result.task(':poeditorPull').outcome == UP_TO_DATE
+    when: "should be up to date when pushing without changes"
+    result = GradleRunner.create()
+        .withGradleVersion(gradleVersion)
+        .withProjectDir(testProjectDir.root)
+        .withArguments('--build-cache', 'poeditorPush')
+        .withPluginClasspath()
+        .forwardOutput()
+        .withDebug(true)
+        .build()
+
+    then:
+    result.task(':poeditorPush').outcome == UP_TO_DATE
+
+    when: "should be up to date when pulling without changes"
+    result = GradleRunner.create()
+        .withGradleVersion(gradleVersion)
+        .withProjectDir(testProjectDir.root)
+        .withArguments('--build-cache', 'poeditorPull')
+        .withPluginClasspath()
+        .forwardOutput()
+        .withDebug(true)
+        .build()
+
+    then:
+    result.task(':poeditorPull').outcome == UP_TO_DATE
 
     where:
     gradleVersion << ['4.5', '4.6']
