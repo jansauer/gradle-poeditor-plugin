@@ -39,10 +39,10 @@ class PushTask extends DefaultTask {
     return project.files(*terms.get().collect {Paths.get(it.file)})
   }
 
-  @OutputFiles
-  ConfigurableFileCollection getOutOfDateOutputs() {
-    return project.files(*terms.get().collect {Paths.get(it.file)})
-  }
+//  @OutputFiles
+//  ConfigurableFileCollection getOutOfDateOutputs() {
+//    return project.files(*terms.get().collect {Paths.get(it.file)})
+//  }
 
   @TaskAction
   def pushTerms() {
