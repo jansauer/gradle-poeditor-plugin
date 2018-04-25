@@ -1,11 +1,11 @@
 # Gradle POEditor Plugin
 
-Gradle plugin to manage translations easily within a [POEditor](https://poeditor.com) project. The plugin enables you 
-to upload and download terms and respectively translations via gradle tasks.
+Gradle plugin to manage translations easily within a [POEditor](https://poeditor.com) project. The 
+plugin enables you to upload and download terms and respectively translations via gradle tasks.
 
 ## Getting Started
 
-Add this snippet to yout build script.
+Add this snippet to your build script.
 
 ```
 plugins {
@@ -23,17 +23,46 @@ poeditor {
 }
 ```
 
-**Upload terms and translations:**
+## Tasks
+
+* `poeditorPush` Upload terms and/or translations
+* `poeditorPull` Download translations
+
+## Configuration
 
 ```
-$ ./gradlew poeditorPush
+poeditor {
+  apiKey = 'd41d8cd98f00b204e9800998ecf8427e'
+  projectId = '12345'
+
+  terms lang: 'en', file: 'messages.xmb', updating: 'terms_translations'
+  trans lang: 'it', file: 'build/translations_it.csv', type: 'csv'
+}
 ```
 
-**Download translations:**
+* `apiKey`: Key for the authentication with the poeditor api.<br>
+  Can be fount at [My Account > API Access](https://poeditor.com/account/api)
+* `projectId`: Id of project terms and translations are pulled and pushed to.<br>
+   Can also be fount at [My Account > API Access](https://poeditor.com/account/api)
+* `terms`: Can be used multiple times to define terms to push to poeditor.
+  * `updating`: One of 'terms', 'terms_translations' or 'translations' (Default: 'terms')
+  * `file`: Local file to be uploaded ([List of supported formats](https://poeditor.com/help/#SupportedFormats))
+  * `lang`: The language code (Default: 'en')
+  * `overwrite`: Set to true if you want to overwrite translations (Default: false)
+  * `sync_terms`: Set to true if you want to sync your terms (terms that are 
+    not found in the uploaded file will be deleted from project and the new 
+    ones added). Ignored if updating is set to 'translations' (Default: false)
+* `trans`: Can be used multiple times to define translations to pull from poeditor.
+  * `lang`: The language code (Default: 'en')
+  * `type`: File format (po, pot, mo, xls, csv, resw, resx, android_strings, apple_strings, xliff, 
+     properties, key_value_json, json, xmb, xtb) (Default: 'xtb')
+  * `file`: Location to where the translation will be downloaded
 
-```
-$ ./gradlew poeditorPull
-```
+## Publishing Workflow
+
+Every commit on this repository gets tested via [circleci](https://circleci.com/gh/jansauer/gradle-poeditor-plugin).
+Commits that are tagged with a semantic version are also automatically published to the gradle 
+plugin directory as a new version.
 
 ## Contributing
 
