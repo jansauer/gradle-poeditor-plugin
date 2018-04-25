@@ -106,7 +106,7 @@ class POEditorPluginTest extends Specification {
     result.task(':poeditorPull').outcome == UP_TO_DATE
 
     where:
-    gradleVersion << ['4.5', '4.6']
+    gradleVersion << ['4.5', '4.6', '4.7']
   }
 
   def cleanup() {
