@@ -41,9 +41,9 @@ poeditor {
 ```
 
 * `apiKey`: Key for the authentication with the poeditor api.<br>
-  Can be fount at [My Account > API Access](https://poeditor.com/account/api)
-* `projectId`: Id of project terms and translations are pulled and pushed to.<br>
-   Can also be fount at [My Account > API Access](https://poeditor.com/account/api)
+  Can be found at [My Account > API Access](https://poeditor.com/account/api)
+* `projectId`: Id of poeditor project terms and translations are pulled from and pushed to.<br>
+   Can also be found at [My Account > API Access](https://poeditor.com/account/api)
 * `terms`: Can be used multiple times to define terms to push to poeditor.
   * `updating`: One of 'terms', 'terms_translations' or 'translations' (Default: 'terms')
   * `file`: Local file to be uploaded ([List of supported formats](https://poeditor.com/help/#SupportedFormats))
@@ -56,7 +56,7 @@ poeditor {
   * `lang`: The language code (Default: 'en')
   * `type`: File format (po, pot, mo, xls, csv, resw, resx, android_strings, apple_strings, xliff, 
      properties, key_value_json, json, xmb, xtb) (Default: 'xtb')
-  * `file`: Location to where the translation will be downloaded
+  * `file`: Location where the downloaded translations are stored.
 
 ## Publishing Workflow
 
