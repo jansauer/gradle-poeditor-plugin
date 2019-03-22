@@ -55,38 +55,53 @@ class PushTask extends DefaultTask {
       def overwrite = (it.overwrite) ? '1' : '0'
       def sync_terms = (it.sync_terms) ? '1' : '0'
 
-      def result = configure {
-        request.uri = 'https://api.poeditor.com/v2/projects/upload'
-      }.post {
-        request.contentType = 'multipart/form-data'
-        request.body = multipart {
-          field 'api_token', apiKey.get()
-          field 'id', projectId.get()
-          field 'updating', updating
-          part 'file', termsFile.name, 'text/plain', termsFile
-          field 'language', lang
-          field 'overwrite', overwrite
-          field 'sync_terms', sync_terms
-        }
-        request.encoder 'multipart/form-data', OkHttpEncoders.&multipart
+      def retries = 8
+      while (retries > 0) {
 
-        response.exception { exception ->
-          logger.error("{}", exception.printStackTrace())
-          throw new GradleException(exception)
+        def result = configure {
+          request.uri = 'https://api.poeditor.com/v2/projects/upload'
+        }.post {
+          request.contentType = 'multipart/form-data'
+          request.body = multipart {
+            field 'api_token', apiKey.get()
+            field 'id', projectId.get()
+            field 'updating', updating
+            part 'file', termsFile.name, 'text/plain', termsFile
+            field 'language', lang
+            field 'overwrite', overwrite
+            field 'sync_terms', sync_terms
+          }
+          request.encoder 'multipart/form-data', OkHttpEncoders.&multipart
+
+          response.exception { exception ->
+            logger.error("{}", exception.printStackTrace())
+            throw new GradleException(exception)
+          }
+
+          response.failure { FromServer fs ->
+            logger.error("{} {}", fs.message, fs.statusCode)
+            throw new GradleException(fs.message)
+          }
         }
 
-        response.failure { FromServer fs ->
-          logger.error("{} {}", fs.message, fs.statusCode)
-          throw new GradleException(fs.message)
+        if (result.response.status == 'success') {
+          logger.info("{}", result.result)
+          outputFile.text = result.response.code
+          break
+        } else if (result.response.code == "4048") {
+          logger.warn("Too many upload requests in a short period of time; waiting for a retry...")
+          retries -= 1
+          sleep(15000)
+        } else {
+          logger.error("{} {}", result.response.code, result.response.message)
+          throw new GradleException(result.response.message)
         }
-      }
 
-      if (result.response.status == 'success') {
-        logger.info("{}", result.result)
-        outputFile.text = result.response.code
-      } else {
-        logger.error("{} {}", result.response.code, result.response.message)
-        throw new GradleException(result.response.message)
+        if (retries == 0) {
+          logger.error("Too many upload retires")
+          throw new GradleException("Too many upload retires")
+        }
+
       }
     }
   }

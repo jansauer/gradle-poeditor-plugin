@@ -109,7 +109,7 @@ class POEditorPluginTest extends Specification {
     gradleVersion << ['4.5', '4.6', '4.7']
   }
 
-  def cleanup() {
-    sleep(30000)  // poeditor api is rate limited
-  }
+//  def cleanup() {
+//    sleep(30000)  // poeditor api is rate limited
+//  }
 }
