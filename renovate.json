@@ -1,5 +1,9 @@
 {
-  "extends": [
-    "config:base"
-  ]
+  "rangeStrategy": "pin",
+  "semanticCommits": true,
+  "labels": ["renovate"],
+  "automerge": false,
+  "gradle": {
+    "enabled": true
+  }
 }
