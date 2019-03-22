@@ -58,6 +58,13 @@ poeditor {
      properties, key_value_json, json, xmb, xtb) (Default: 'xtb')
   * `file`: Location where the downloaded translations are stored.
 
+## Tested Gradle Versions
+
+4.10, 4.10.1, 4.10.2, 4.10.3, 5.1, 5.1.1, 5.2, 5.2.1, 5.3
+
+* **Pre 4.10** does not work wel with JDK11 plugin builds
+* **5.0** has a bug with manually added ListProperty ([#7961](https://github.com/gradle/gradle/issues/7961))
+
 ## Publishing Workflow
 
 Every commit on this repository gets tested via [circleci](https://circleci.com/gh/jansauer/gradle-poeditor-plugin).
@@ -75,7 +82,7 @@ Author: Jan Sauer
 ([https://jansauer.de](https://jansauer.de))
 
 ```text
-Copyright 2018, Jan Sauer <jan@jansauer.de> (https://jansauer.de)
+Copyright 2019, Jan Sauer <jan@jansauer.de> (https://jansauer.de)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

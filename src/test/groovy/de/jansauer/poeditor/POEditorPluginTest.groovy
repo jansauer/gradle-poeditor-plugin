@@ -30,6 +30,7 @@ class POEditorPluginTest extends Specification {
 
   def "should upload terms and download translations"() {
     given:
+    println gradleVersion
     buildFile << """
         plugins {
           id 'de.jansauer.poeditor'
@@ -106,10 +107,6 @@ class POEditorPluginTest extends Specification {
     result.task(':poeditorPull').outcome == UP_TO_DATE
 
     where:
-    gradleVersion << ['4.5', '4.6', '4.7']
+    gradleVersion << ['4.10', '4.10.1', '4.10.2', /*'5.0',*/ '4.10.3', '5.1', '5.1.1', '5.2', '5.2.1', '5.3']
   }
-
-//  def cleanup() {
-//    sleep(30000)  // poeditor api is rate limited
-//  }
 }
