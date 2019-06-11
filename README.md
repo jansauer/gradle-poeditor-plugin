@@ -62,7 +62,7 @@ poeditor {
 
 4.10, 4.10.1, 4.10.2, 4.10.3, 5.1, 5.1.1, 5.2, 5.2.1, 5.3
 
-* **Pre 4.10** does not work wel with JDK11 plugin builds
+* **Pre 4.10** does not work well with JDK11 plugin builds
 * **5.0** has a bug with manually added ListProperty ([#7961](https://github.com/gradle/gradle/issues/7961))
 
 ## Publishing Workflow
