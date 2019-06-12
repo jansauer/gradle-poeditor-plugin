@@ -60,7 +60,7 @@ poeditor {
 
 ## Tested Gradle Versions
 
-4.10, 4.10.1, 4.10.2, 4.10.3, 5.1, 5.1.1, 5.2, 5.2.1, 5.3
+[This plugin is automatically tested with all supported gradle versions.](https://github.com/jansauer/gradle-poeditor-plugin/blob/master/src/test/groovy/de/jansauer/poeditor/POEditorPluginTest.groovy#L15) 
 
 * **Pre 4.10** does not work well with JDK11 plugin builds
 * **5.0** has a bug with manually added ListProperty ([#7961](https://github.com/gradle/gradle/issues/7961))
