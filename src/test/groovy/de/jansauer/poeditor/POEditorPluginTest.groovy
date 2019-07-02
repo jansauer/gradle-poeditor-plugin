@@ -12,7 +12,7 @@ import static org.gradle.testkit.runner.TaskOutcome.UP_TO_DATE
 
 class POEditorPluginTest extends Specification {
 
-  static def SUPPORTED_VERSIONS = ['4.10', '4.10.1', '4.10.2', /*'5.0',*/ '4.10.3', '5.1', '5.1.1', '5.2', '5.2.1', '5.3', '5.3.1', '5.4', '5.4.1']
+  static def SUPPORTED_VERSIONS = ['4.10', '4.10.1', '4.10.2', /*'5.0',*/ '4.10.3', '5.1', '5.1.1', '5.2', '5.2.1', '5.3', '5.3.1', '5.4', '5.4.1', '5.5']
 
   @Rule
   final TemporaryFolder testProjectDir = new TemporaryFolder()
