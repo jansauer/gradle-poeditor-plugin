@@ -8,7 +8,9 @@ jobs:
     - checkout
     - restore_cache:
         key: gradle-{{ checksum "build.gradle" }}
-    - run: ./gradlew clean build
+    - run:
+        command: ./gradlew clean build
+        no_output_timeout: 30m
     - persist_to_workspace:
         root: ./
         paths:
