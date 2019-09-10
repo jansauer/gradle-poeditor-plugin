@@ -36,7 +36,7 @@ poeditor {
   projectId = '12345'
 
   terms lang: 'en', file: 'messages.xmb', updating: 'terms_translations'
-  trans lang: 'it', file: 'build/translations_it.csv', type: 'csv'
+  trans lang: 'it', file: 'build/translations_it.csv', type: 'csv', tags: ['feature1','feature2']
 }
 ```
 
@@ -57,6 +57,7 @@ poeditor {
   * `type`: File format (po, pot, mo, xls, csv, resw, resx, android_strings, apple_strings, xliff, 
      properties, key_value_json, json, xmb, xtb) (Default: 'xtb')
   * `file`: Location where the downloaded translations are stored.
+  * `tags`: Pull translations that match *all* of the given tags (Default: [])
 
 ## Tested Gradle Versions
 
