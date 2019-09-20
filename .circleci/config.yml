@@ -3,7 +3,7 @@ jobs:
 
   build:
     docker:
-    - image: circleci/openjdk:11-jdk
+    - image: openjdk:12.0.1-jdk
     steps:
     - checkout
     - restore_cache:
@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     docker:
-    - image: circleci/openjdk:11-jdk
+    - image: openjdk:12.0.1-jdk
     steps:
     - checkout
     - restore_cache:
