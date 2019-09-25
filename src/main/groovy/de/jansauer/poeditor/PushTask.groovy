@@ -42,7 +42,6 @@ class PushTask extends DefaultTask {
     return project.files(*terms.get().collect {Paths.get(it.file)})
   }
 
-  @TaskAction
   def pushTerms() {
     // @See https://poeditor.com/docs/api#projects_upload
     logger.debug("Pushing '{}' sets of terms", terms.get().size())
@@ -54,6 +53,7 @@ class PushTask extends DefaultTask {
       def lang = it.lang
       def overwrite = (it.overwrite) ? '1' : '0'
       def sync_terms = (it.sync_terms) ? '1' : '0'
+      def tags = it.tags
 
       def retries = 8
       while (retries > 0) {
@@ -70,6 +70,10 @@ class PushTask extends DefaultTask {
             field 'language', lang
             field 'overwrite', overwrite
             field 'sync_terms', sync_terms
+
+            tags.forEach { tag ->
+              field 'tags', tag
+            }
           }
           request.encoder 'multipart/form-data', OkHttpEncoders.&multipart
 
