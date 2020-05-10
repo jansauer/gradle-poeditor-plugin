@@ -54,7 +54,7 @@ class PullTask extends DefaultTask {
         @Override
         void execute(WorkerConfiguration config) {
           config.setIsolationMode(IsolationMode.NONE)
-          config.params(apiKey.get(), projectId.get(), it.lang, it.type, project.file(it.file), it.tags)
+          config.params(apiKey.get(), projectId.get(), it.lang, it.type, project.file(it.file), it.tags, it.filters)
         }
       })
     }
