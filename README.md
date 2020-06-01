@@ -35,8 +35,8 @@ poeditor {
   apiKey = 'd41d8cd98f00b204e9800998ecf8427e'
   projectId = '12345'
 
-  terms lang: 'en', file: 'messages.xmb', updating: 'terms_translations'
-  trans lang: 'it', file: 'build/translations_it.csv', type: 'csv', tags: ['feature1','feature2']
+  terms lang: 'en', file: 'messages.xmb', updating: 'terms_translations', tags: ['feature1','feature2']
+  trans lang: 'it', file: 'build/translations_it.csv', type: 'csv', tags: ['feature1','feature2'], filters: 'translated'
 }
 ```
 
@@ -52,12 +52,14 @@ poeditor {
   * `sync_terms`: Set to true if you want to sync your terms (terms that are 
     not found in the uploaded file will be deleted from project and the new 
     ones added). Ignored if updating is set to 'translations' (Default: false)
+  * `tags`: Add tags to the project terms (Default: [])
 * `trans`: Can be used multiple times to define translations to pull from poeditor.
   * `lang`: The language code (Default: 'en')
   * `type`: File format (po, pot, mo, xls, csv, resw, resx, android_strings, apple_strings, xliff, 
      properties, key_value_json, json, xmb, xtb) (Default: 'xtb')
   * `file`: Location where the downloaded translations are stored.
   * `tags`: Pull translations that match *all* of the given tags (Default: [])
+  * `filters`: Filters used to pull strings
 
 ## Tested Gradle Versions
 

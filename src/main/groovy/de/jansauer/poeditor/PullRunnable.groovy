@@ -19,17 +19,19 @@ class PullRunnable implements Runnable {
   private final String type
   private final File file
   private final List<String> tags
+  private final List<String> filters
 
   private final Logger logger = LoggerFactory.getLogger(PullRunnable.class)
 
   @Inject
-  PullRunnable(String apiKey, String projectId, String lang, String type, File file, List<String> tags) {
+  PullRunnable(String apiKey, String projectId, String lang, String type, File file, List<String> tags, List<String> filters) {
     this.apiKey = apiKey
     this.projectId = projectId
     this.lang = lang
     this.type = type
     this.file = file
     this.tags = tags
+    this.filters = filters
   }
 
   @Override
@@ -48,6 +50,9 @@ class PullRunnable implements Runnable {
 
         tags.forEach { tag ->
           field 'tags', tag
+        }
+        filters.forEach { filter ->
+          field 'filters', filter
         }
       }
       request.encoder 'multipart/form-data', OkHttpEncoders.&multipart
