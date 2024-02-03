@@ -2,7 +2,7 @@ plugins {
   id 'com.palantir.git-version' version '0.11.0'
   id 'groovy'
   id 'java-gradle-plugin'
-  id 'com.gradle.plugin-publish' version '0.10.1'
+  id 'com.gradle.plugin-publish' version '1.2.0'
 }
 
 description = 'Gradle POEditor Plugin'
